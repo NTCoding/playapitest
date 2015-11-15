@@ -1,4 +1,4 @@
-use acceptancetests;
+use apitests;
 
 -- Test notifications
 insert into notifications (id, room, username, message, timestamp)
