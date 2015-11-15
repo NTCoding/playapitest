@@ -7,7 +7,7 @@ import play.api.test.TestServer
 import slick.driver.MySQLDriver.api._
 import scala.collection.JavaConverters._
 
-object CreateTestApplicationWithEmptyDB {
+object CreateTestApplicationWithTestDB {
   import api.configuration.TestDatabase._
   val m = Map(
     "chatroomz" -> Map(
@@ -23,10 +23,12 @@ object CreateTestApplicationWithEmptyDB {
 
   def apply(port: Int, dbScript: String) = {
     val db = Database.forConfig("chatroomz", dbConfig)
+
     val app = new GuiceApplicationBuilder()
       .configure(Map("logger.root" -> "ERROR", "logger.application" -> "ERROR"))
-      .overrides(bind[Database].toInstance(db))
+      .overrides(bind[Database].toInstance(db)) // <- override binding in main app
       .build
+
     val server = TestServer(port, app)
     server.start()
     server

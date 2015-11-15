@@ -7,7 +7,6 @@ import play.api.libs.ws.WS
 
 class notifications_latest extends APITest {
   import TestData._
-  implicit val f: Format[APINotification] = Json.format[APINotification]
   val dbScript = "/api/notifications.sql"
 
   "When requesting the latest notifications" - {
@@ -25,6 +24,7 @@ class notifications_latest extends APITest {
   }
 
   object TestData {
+    implicit val f: Format[APINotification] = Json.format[APINotification]
     // These correspond to the insertions in "$dbScript"
     val testNotifications = Seq(
       APINotification("test room1", "user 1", "This room is so amazing", "2015-01-01 00:00:00.0"),

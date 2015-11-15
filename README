@@ -1,4 +1,15 @@
 Play API Testing Sample Application
 ===================================
 
-See the accompanying blog post: 
+See the accompanying blog post for more details: http://blog.ntcoding.com/2015/11/api-testing-patterns-for-play-framework.html
+
+
+Running the application
+=======================
+1. Start vaggrant: vagrant up; vagrant ssh
+
+2. cd into application directory: cd /vagrant
+
+3. Run ./activator
+
+4. Start app: "run" or run tests: "test"

@@ -3,13 +3,12 @@ package api.configuration
 import java.io.StringReader
 import java.sql.DriverManager
 
+import api.configuration.TestDatabase._
 import com.ibatis.common.jdbc.ScriptRunner
 import org.scalatest.{BeforeAndAfterAll, FreeSpecLike, Matchers}
 import play.api.Play
 import play.api.Play.current
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits, TestServer}
-import TestDatabase._
-import DBScriptRunner._
 
 import scala.io.Source
 import scala.util.Random
@@ -18,14 +17,14 @@ trait APITest extends FreeSpecLike with Matchers with BeforeAndAfterAll with Fut
   val port: Int = 1000 + Random.nextInt(8999)
   val dbScript: String
 
-  lazy val server: TestServer = CreateTestApplicationWithEmptyDB(port, dbScript)
+  lazy val server: TestServer = CreateTestApplicationWithTestDB(port, dbScript)
 
   def startApi() = {
     info(s"Starting API test: ${getClass.getName} on port: ${server.port}")
     info(s"Running /db.sql against $dbUrl")
-    runDbScript(dbUrl, username, password, "/db.sql")
+    DBScriptRunner.runDbScript(dbUrl, username, password, "/db.sql")
     info(s"Running $dbScript against $dbUrl")
-    runDbScript(dbUrl, username, password, dbScript)
+    DBScriptRunner.runDbScript(dbUrl, username, password, dbScript)
   }
 
   override def afterAll() {
