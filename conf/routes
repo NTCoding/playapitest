@@ -1,0 +1,2 @@
+GET /notifications/latest   controllers.Notifications.latest
+
